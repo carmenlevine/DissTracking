@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DissTest</string>
+    <string name="Background_image">Background Image</string>
+    <string name="Android_Tracker">Android Tracker</string>
+    <string name="middleText">Your location is being tracked and stored</string>
+    <string name="currentLocText">Your current location</string>
+</resources>
