@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
             int result = ActivityCompat.checkSelfPermission(this, requiredPermissions[i]);
             if (result != PackageManager.PERMISSION_GRANTED){
                 ok = false;
+            } else {
+                ok = true;
             }
         }
         if (!ok){ //error - doesn't compile from this point
@@ -44,11 +46,12 @@ public class MainActivity extends AppCompatActivity {
                     lon = location.getLongitude();
                 }
             });
-        }
+
+            }
         TextView textLat = (TextView) findViewById(R.id.LatText);
-        textLat.setText("Latitude = " + lat);
+        textLat.setText("Latitude =" + (String.valueOf(lat)), TextView.BufferType.EDITABLE);
 
         TextView textLon = (TextView) findViewById(R.id.LongText);
-        textLon.setText("Longitude = " + lon);
+        textLon.setText("Longitude = " + (String.valueOf(lon)), TextView.BufferType.EDITABLE);
     }
 }
