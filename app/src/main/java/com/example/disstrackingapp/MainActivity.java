@@ -5,18 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.os.Bundle;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationListener;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     double lat;
     double lon;
+    String provider;
+    String latitude, longitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,24 +40,26 @@ public class MainActivity extends AppCompatActivity {
                 ok = true;
             }
         }
-        if (!ok){ //error - doesn't compile from this point
-            ActivityCompat.requestPermissions(this,requiredPermissions,1);
-            System.exit(0);
-        } else { //getting GPS location through latitude and longitude
-            LocationManager locationManager = (LocationManager) getSystemService((LOCATION_SERVICE));
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    lat = location.getLatitude();
-                    lon = location.getLongitude();
-                }
-            });
+        if (ok){ //getting GPS location through latitude and longitude
+            LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null){
+                lat = location.getLatitude();
+                lon = location.getLongitude();
+                latitude = String.valueOf(lat);
+                longitude = String.valueOf(lon);
 
+                TextView textLat = (TextView) findViewById(R.id.LatText);
+                textLat.setText("Latitude = " + latitude);
+
+                TextView textLon = (TextView) findViewById(R.id.LongText);
+                textLon.setText("Longitude = " + longitude);
             }
-        TextView textLat = (TextView) findViewById(R.id.LatText);
-        textLat.setText("Latitude = " + (String.valueOf(lat)), TextView.BufferType.EDITABLE);
 
-        TextView textLon = (TextView) findViewById(R.id.LongText);
-        textLon.setText("Longitude = " + (String.valueOf(lon)), TextView.BufferType.EDITABLE);
+        } else { //error - doesn't compile from this point
+            Toast.makeText(this, "Unable to find location", Toast.LENGTH_SHORT).show();
+            //ActivityCompat.requestPermissions(this, requiredPermissions, 1);
+            System.exit(0);
+        }
     }
 }
