@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         TextView textLat = (TextView) findViewById(R.id.LatText);
-        textLat.setText("Latitude =" + (String.valueOf(lat)), TextView.BufferType.EDITABLE);
+        textLat.setText("Latitude = " + (String.valueOf(lat)), TextView.BufferType.EDITABLE);
 
         TextView textLon = (TextView) findViewById(R.id.LongText);
         textLon.setText("Longitude = " + (String.valueOf(lon)), TextView.BufferType.EDITABLE);
