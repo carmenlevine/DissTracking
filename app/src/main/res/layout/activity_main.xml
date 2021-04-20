@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/middleText"
-        app:layout_constraintVertical_bias="0.134" />
+        app:layout_constraintVertical_bias="0.008" />
 
     <TextView
         android:id="@+id/LatText"
@@ -71,10 +71,10 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/BackgroundImage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintHorizontal_bias="0.216"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currLocText"
-        app:layout_constraintVertical_bias="0.233" />
+        app:layout_constraintVertical_bias="0.172" />
 
     <TextView
         android:id="@+id/LongText"
@@ -85,19 +85,29 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.217"
+        app:layout_constraintHorizontal_bias="0.216"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LatText"
-        app:layout_constraintVertical_bias="0.42" />
+        app:layout_constraintVertical_bias="0.33" />
 
-<!--    <Button-->
-<!--        android:id="@+id/GetLocationButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Find location"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/currLocText"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/middleText" />-->
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit location"
+        app:layout_constraintBottom_toBottomOf="@+id/BackgroundImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LongText" />
+
+    <!--    <Button-->
+    <!--        android:id="@+id/GetLocationButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Find location"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/currLocText"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/middleText" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
