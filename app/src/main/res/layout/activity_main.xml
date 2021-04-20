@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/Background_image"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background_image" />
@@ -44,7 +45,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleText"
-        app:layout_constraintVertical_bias="0.289" />
+        app:layout_constraintVertical_bias="0.133" />
 
     <TextView
         android:id="@+id/currLocText"
@@ -59,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/middleText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.134" />
 
     <TextView
         android:id="@+id/LatText"
@@ -88,4 +89,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LatText"
         app:layout_constraintVertical_bias="0.42" />
+
+<!--    <Button-->
+<!--        android:id="@+id/GetLocationButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Find location"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/currLocText"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/middleText" />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
