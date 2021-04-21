@@ -25,7 +25,17 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,15 +50,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Button SubButton;
-        SubButton = (Button) findViewById(R.id.submitButton);
-        SubButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InsertData(latitude, longitude);
-            }
-        });
 
         String[] requiredPermissions = {
                 Manifest.permission.INTERNET, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -91,56 +92,104 @@ public class MainActivity extends AppCompatActivity {
             System.exit(0);
         }
 
-
-
-
-    }
-    String ServerURL = "jdbc:mysql://localhost:3306/locationtracker";
-
-    public void InsertData ( final String latitude, final String longitude){
-        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
-
+        Button SubButton;
+        SubButton = (Button) findViewById(R.id.submitButton);
+        SubButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected String doInBackground(String... params) {
+            public void onClick(View v) {
+                String connstr = "http://192.168.1.79/location.php";
 
-                String LatHolder = latitude;
-                String LonHolder = longitude;
 
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
 
-                nameValuePairs.add(new BasicNameValuePair("latitude", LatHolder));
-                nameValuePairs.add(new BasicNameValuePair("longitude", LonHolder));
+                    @Override
+                    protected String doInBackground(String... params) {
 
-                try {
-                    HttpClient httpClient = new DefaultHttpClient();
+                        try {
 
-                    HttpPost httpPost = new HttpPost(ServerURL);
+                            URL url = new URL(connstr);
+                            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+                            http.setRequestMethod("POST");
+                            http.setDoInput(true);
+                            http.setDoOutput(true);
+                            OutputStream outputStream = http.getOutputStream();
+                            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                            String postData = URLEncoder.encode("latitude", "UTF-8") + "=" + URLEncoder.encode(latitude, "UTF-8") + "&"
+                                    + URLEncoder.encode("longitude", "UTF-8") + "=" + URLEncoder.encode(longitude, "UTF-8");
+                            bufferedWriter.write(postData);
+                            bufferedWriter.flush();
+                            bufferedWriter.close();
+                            outputStream.close();
+                            InputStream inputStream = http.getInputStream();
+                            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                            String result = "";
+                            String line = "";
+                            while ((line = bufferedReader.readLine()) != null) {
+                                result += line;
+                            }
+                            bufferedReader.close();
+                            inputStream.close();
+                            http.disconnect();
+                            return result;
 
-                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-                    HttpResponse httpResponse = httpClient.execute(httpPost);
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
-                    HttpEntity httpEntity = httpResponse.getEntity();
+//                        String LatHolder = latitude;
+//                        String LonHolder = longitude;
+//
+//                        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+//
+//                        nameValuePairs.add(new BasicNameValuePair("latitude", LatHolder));
+//                        nameValuePairs.add(new BasicNameValuePair("longitude", LonHolder));
+//
+//                        try {
+//                            HttpClient httpClient = new DefaultHttpClient();
+//
+//                            HttpPost httpPost = new HttpPost(connstr);
+//
+//                            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//
+//                            HttpResponse httpResponse = httpClient.execute(httpPost);
+//
+//                            HttpEntity httpEntity = httpResponse.getEntity();
+//
+//                        } catch (ClientProtocolException e) {
+//
+//                        } catch (IOException e) {
+//
+//                        }
 
-                } catch (ClientProtocolException e) {
+                        return "Data Inserted Successfully";
+                    }
 
-                } catch (IOException e) {
-
+                    @Override
+                    protected void onPostExecute(String result) {
+                        super.onPostExecute(result);
+                        Toast.makeText(MainActivity.this, "Data Submitted Successfully", Toast.LENGTH_LONG).show();
+                    }
                 }
 
-                return "Data Inserted Successfully";
-            }
+                SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
 
-            @Override
-            protected void onPostExecute(String result) {
-                super.onPostExecute(result);
-                Toast.makeText(MainActivity.this, "Data Submitted Successfully", Toast.LENGTH_LONG).show();
-            }
+                sendPostReqAsyncTask.execute(latitude, longitude);
+
+
+                }
+            });
+
+
         }
-
-        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-
-        sendPostReqAsyncTask.execute(latitude, longitude);
-
     }
-}
+
+
+
+
+
+
+
+

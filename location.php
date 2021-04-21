@@ -1,11 +1,25 @@
 <?php
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "locationtracker";
 
-$HostName = "localhost:3306";
+$conn = mysqli_connect($host,$user,$pass,$db);
 
-$HostUser = "root";
+$latitude = $_POST['latitude'];
+$longitude = $_POST['longitude'];
 
-$HostPass = "Polopee118247!";
+$Sql_query = "insert into location_history (latitude,longitude) value ('$latitude','$longitude')";
 
-$DatabaseName = "locationtracker";
+if(mysqli_query($conn,$Sql_query)){
 
+    echo 'Data Submit Successfully';
+
+}
+else{
+
+    echo 'Try again';
+
+}
+mysqli_close($conn);
 ?>
