@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //php file containing connection to the database
-                String connstr = "http://192.168.1.79/location.php";
+                String connstr = "http://192.168.1.79:8080/location.php";
 
                 class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
                     @Override
