@@ -1,6 +1,7 @@
 Tracking criminal behaviour using mobile phones
 
 This project includes the development of an application called Android Tracker.
+
 ----------Description of the system------------------------------------
 
 Android Tracker extracts the location of the device and presents it in the form of latitude and longitude on the user interface. Once the submit location button is clicked, the application sends the latitude and longitude to a PHP script, which that inputs the data into a database called locationtracker inside a table called location_history, which allocates a unique identification key and a current timestamp.
@@ -18,6 +19,7 @@ Select the admin button for MySQL. This should bring up a page in your web brows
 Now you are all set up. Create and run an emulator in android studio, ensure a location is set on the device. Click the submit location button in the application, update the web browser and a new entry with the latitude and longitude of the device will be added to the table.
 
 ------------Disclosure-------------------------------------------------
+
 This project was developed as part of the Project unit for project RC.171 Tracking criminal behaviour using mobile phones at Manchester Metropolitan Unversity by Carmen Mae Levine, student number 18003552.
 
 Github Repository
